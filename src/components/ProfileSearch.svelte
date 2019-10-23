@@ -11,6 +11,7 @@
       `/Destiny2/SearchDestinyPlayer/All/${search}/`
     );
     const accounts = await response.json();
+    console.log(`accounts array`);
     console.log(accounts.Response);
     accountList = [...accounts.Response];
   };
@@ -19,18 +20,29 @@
 </script>
 
 <style>
-
+  .account-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  input[type="text"] {
+    font-size: 20px;
+    height: 25px;
+  }
 </style>
 
-{#if accountList.length > 0}
-  {#each accountList as account}
-    <PlatformProfile
-      displayName={account.displayName}
-      iconPath={account.iconPath} />
-  {/each}
-{:else}
-  <h2>Search for a profile:</h2>
-{/if}
+<section class="account-display">
+  {#if accountList.length > 0}
+    {#each accountList as account (account.membershipId)}
+      <PlatformProfile
+        displayName={account.displayName}
+        iconPath={account.iconPath}
+        membershipId={account.membershipId} />
+    {/each}
+  {:else}
+    <h2>Search for a profile:</h2>
+  {/if}
+</section>
 
 <input bind:value={searchValue} type="text" />
-<button on:click={() => getData(searchValue)}>Click</button>
+<button on:click={() => getData(searchValue)}>Search</button>

@@ -1,6 +1,13 @@
 <script>
+  import { currentMembershipId } from "../stores.js";
+
   export let displayName;
   export let iconPath;
+  export let membershipId;
+
+  const setMembershipId = function() {
+    currentMembershipId.set(membershipId);
+  };
 
   const generateAltText = function(iconPath) {
     const firstIndex = iconPath.search("_");
@@ -9,11 +16,12 @@
 </script>
 
 <style>
-  div {
+  button {
     display: flex;
     align-items: center;
     border: 1px solid #333;
-    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   }
 
   img {
@@ -28,9 +36,9 @@
   }
 </style>
 
-<div>
+<button on:click={setMembershipId}>
   <img
     src={`http://bungie.net${iconPath}`}
     alt={`${generateAltText(iconPath)} logo`} />
   <p>{displayName}</p>
-</div>
+</button>
