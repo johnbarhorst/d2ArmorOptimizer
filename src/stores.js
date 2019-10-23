@@ -1,0 +1,1 @@
+export const rootPath = 'https://www.bungie.net/Platform';
