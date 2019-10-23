@@ -1,41 +1,35 @@
 <script>
-  import { rootPath } from "../stores.js";
-  import API_KEY from "../../API_KEY.js";
-  import Input from "./Input.svelte";
+  import { platformPath, apiCall } from "../stores.js";
+  import PlatformProfile from "./PlatformProfile.svelte";
 
-  let searchValue;
-  let haveProfiles = false;
-  const profileList = [];
+  let searchValue = "";
+  let accountList = [];
 
   const getData = async function(search) {
-    const response = await fetch(
-      `${rootPath}/Destiny2/SearchDestinyPlayer/All/${search}/`,
-      {
-        headers: {
-          "X-API-KEY": API_KEY
-        }
-      }
+    const response = await apiCall(
+      platformPath,
+      `/Destiny2/SearchDestinyPlayer/All/${search}/`
     );
-    const profiles = await response.json();
-    console.log(profiles.Response);
-    profileList.push(...profiles.Response);
-    haveProfiles = true;
+    const accounts = await response.json();
+    console.log(accounts.Response);
+    accountList = [...accounts.Response];
   };
+
+  const selectPlatform = function(profile) {};
 </script>
 
 <style>
 
 </style>
 
-{#if haveProfiles}
-  {#each profileList as profile}
-    <h4>
-      <img src={`http://bungie.net${profile.iconPath}`} alt="Platform Logo" />
-      {profile.displayName}
-    </h4>
+{#if accountList.length > 0}
+  {#each accountList as account}
+    <PlatformProfile
+      displayName={account.displayName}
+      iconPath={account.iconPath} />
   {/each}
 {:else}
-  <h4>Search for a profile:</h4>
+  <h2>Search for a profile:</h2>
 {/if}
 
 <input bind:value={searchValue} type="text" />
