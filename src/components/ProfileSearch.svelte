@@ -7,7 +7,6 @@
 
   const getData = async function(search) {
     const response = await apiCall(
-      platformPath,
       `/Destiny2/SearchDestinyPlayer/All/${search}/`
     );
     const accounts = await response.json();
@@ -48,10 +47,7 @@
 <section class="account-display">
   {#if accountList.length > 0}
     {#each accountList as account (account.membershipId)}
-      <PlatformProfile
-        displayName={account.displayName}
-        iconPath={account.iconPath}
-        membershipId={account.membershipId} />
+      <PlatformProfile {...account} />
     {/each}
   {:else}
     <h2>Search for a profile:</h2>

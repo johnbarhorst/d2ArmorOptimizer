@@ -1,12 +1,22 @@
 <script>
-  import { currentMembershipId } from "../stores.js";
+  import { apiCall, currentMembershipId } from "../stores.js";
 
   export let displayName;
   export let iconPath;
   export let membershipId;
+  export let membershipType;
+
+  const getProfile = async function() {
+    const response = await apiCall(
+      `/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,200`
+    );
+    const profiles = await response.json();
+    console.log(profiles.Response);
+  };
 
   const setMembershipId = function() {
     currentMembershipId.set(membershipId);
+    getProfile();
   };
 
   const generateAltText = function(iconPath) {
