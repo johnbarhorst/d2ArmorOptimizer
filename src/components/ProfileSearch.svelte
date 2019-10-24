@@ -24,10 +24,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  form {
+    display: flex;
   }
   input[type="text"] {
     font-size: 20px;
     height: 25px;
+    width: 200px;
+    border: 1px solid #333;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    height: 29px;
+    width: 150px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   }
 </style>
 
@@ -41,8 +55,11 @@
     {/each}
   {:else}
     <h2>Search for a profile:</h2>
+    <!-- TODO: Logic for invalid searches -->
   {/if}
 </section>
 
-<input bind:value={searchValue} type="text" />
-<button on:click={() => getData(searchValue)}>Search</button>
+<form on:submit|preventDefault={() => getData(searchValue)}>
+  <input bind:value={searchValue} type="text" />
+  <button type="submit">Search</button>
+</form>
