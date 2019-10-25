@@ -6,12 +6,14 @@
   export let membershipId;
   export let membershipType;
 
+  let characterHashList = [];
+
   const getProfile = async function() {
-    const response = await apiCall(
-      `/Destiny2/${membershipType}/Profile/${membershipId}/?components=100,200`
+    const profiles = await apiCall(
+      `/Destiny2/${membershipType}/Profile/${membershipId}/?components=200`
     );
-    const profiles = await response.json();
-    console.log(profiles.Response);
+    const hashArray = Object.keys(profiles.characters.data);
+    characterHashList = [...hashArray];
   };
 
   const setMembershipId = function() {
