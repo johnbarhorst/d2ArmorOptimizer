@@ -52,7 +52,7 @@
 <section class="account-display">
   {#if $accounts.length > 0}
     {#each $accounts as account (account.membershipId)}
-      <PlatformProfile {...account} />
+      <PlatformProfile {account} />
     {/each}
   {/if}
 </section>

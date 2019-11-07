@@ -1,12 +1,9 @@
 <script>
   import { fly } from "svelte/transition";
 
-  export let displayName;
-  export let iconPath;
-  export let membershipId;
-  export let membershipType;
-  export let isPublic;
-  export let crossSaveOverride;
+  export let account;
+  console.log(account);
+  const { displayName, iconPath } = account;
 
   const generateAltText = function(iconPath) {
     const firstIndex = iconPath.search("_");
