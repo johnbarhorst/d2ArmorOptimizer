@@ -1,24 +1,29 @@
 <script>
-  import { apiCall, currentMembershipId } from "../stores.js";
+  import {
+    apiCall,
+    currentMembershipId,
+    characterHashArray,
+    accountSelected
+  } from "../stores.js";
+  import { fly } from "svelte/transition";
 
   export let displayName;
   export let iconPath;
   export let membershipId;
   export let membershipType;
 
-  let characterHashList = [];
-
   const getProfile = async function() {
     const profiles = await apiCall(
       `/Destiny2/${membershipType}/Profile/${membershipId}/?components=200`
     );
     const hashArray = Object.keys(profiles.characters.data);
-    characterHashList = [...hashArray];
+    characterHashArray.set([...hashArray]);
   };
 
   const setMembershipId = function() {
     currentMembershipId.set(membershipId);
     getProfile();
+    accountSelected.set(true);
   };
 
   const generateAltText = function(iconPath) {
@@ -49,7 +54,7 @@
   }
 </style>
 
-<button on:click={setMembershipId}>
+<button on:click={setMembershipId} transition:fly={{ y: -100 }}>
   <img
     src={`http://bungie.net${iconPath}`}
     alt={`${generateAltText(iconPath)} logo`} />

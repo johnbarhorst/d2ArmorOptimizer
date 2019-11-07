@@ -1,19 +1,23 @@
 <script>
-  import { platformPath, apiCall, accountNameSearched } from "../stores.js";
+  import {
+    platformPath,
+    apiCall,
+    characterHashArray,
+    accountSelected
+  } from "../stores.js";
   import PlatformProfile from "./PlatformProfile.svelte";
 
   let searchValue = "";
   let accountList = [];
+
+  $: console.log($characterHashArray);
 
   const getData = async function(search) {
     const accounts = await apiCall(
       `/Destiny2/SearchDestinyPlayer/All/${search}/`
     );
     accountList = [...accounts];
-    accountNameSearched.set(true);
   };
-
-  const selectPlatform = function(profile) {};
 </script>
 
 <style>
@@ -52,7 +56,7 @@
 </form>
 
 <section class="account-display">
-  {#if $accountNameSearched}
+  {#if accountList.length > 0}
     {#each accountList as account (account.membershipId)}
       <PlatformProfile {...account} />
     {/each}
