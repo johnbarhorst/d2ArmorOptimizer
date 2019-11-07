@@ -1,22 +1,16 @@
 <script>
-  import {
-    platformPath,
-    apiCall,
-    characterHashArray,
-    accountSelected
-  } from "../stores.js";
+  import { platformPath, apiCall, accounts } from "../stores.js";
   import PlatformProfile from "./PlatformProfile.svelte";
 
   let searchValue = "";
-  let accountList = [];
+  let searchResults = [];
+  $: accounts.set(searchResults);
 
-  $: console.log($characterHashArray);
-
-  const getData = async function(search) {
-    const accounts = await apiCall(
+  const searchForAccounts = async function(search) {
+    const accountList = await apiCall(
       `/Destiny2/SearchDestinyPlayer/All/${search}/`
     );
-    accountList = [...accounts];
+    searchResults = [...accountList];
   };
 </script>
 
@@ -50,16 +44,15 @@
 </style>
 
 <h2>Search for a profile:</h2>
-<form on:submit|preventDefault={() => getData(searchValue)}>
+<form on:submit|preventDefault={() => searchForAccounts(searchValue)}>
   <input bind:value={searchValue} type="text" />
   <button type="submit">Search</button>
 </form>
 
 <section class="account-display">
-  {#if accountList.length > 0}
-    {#each accountList as account (account.membershipId)}
+  {#if $accounts.length > 0}
+    {#each $accounts as account (account.membershipId)}
       <PlatformProfile {...account} />
     {/each}
-    <!-- TODO: Logic for invalid searches -->
   {/if}
 </section>

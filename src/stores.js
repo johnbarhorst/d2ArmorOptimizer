@@ -4,8 +4,8 @@ import API_KEY from '../API_KEY.js';
 
 // API/PROFILE STUFF
 export let currentMembershipId = writable(0);
-export let characterHashArray = writable([]);
 export let membershipType = writable('All');
+export let accounts = writable([]);
 
 
 

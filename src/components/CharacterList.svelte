@@ -1,15 +1,23 @@
 <script>
-  import { characterHashArray, apiCall } from "../stores.js";
-  const characters = apiCall();
-  const getCharInfo = async function($characterHashArray) {};
+  import { apiCall, membershipType, currentMembershipId } from "../stores.js";
+
+  let characters = [];
+  $: console.log("characters updated", characters);
+
+  const getCharacterList = async function() {
+    // Set the membership ID to be the one associated with account clicked
+    currentMembershipId.set(membershipId);
+    // Returns the characters for that membershipID
+    const profiles = await apiCall(
+      `/Destiny2/${membershipType}/Profile/${membershipId}/?components=200`
+    );
+    console.log(profiles);
+    characters = Object.values(profiles.characters.data);
+    // Flagging that an account has been set for now, until I have better data flow
+    accountSelected.set(true);
+  };
 </script>
 
 <style>
 
 </style>
-
-{#await getCharInfo}
-  <!-- promise is pending -->
-{:then value}
-  <!-- promise was fulfilled -->
-{/await}
