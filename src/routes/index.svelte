@@ -1,5 +1,6 @@
 <script>
   import ProfileSearch from "../components/ProfileSearch.svelte";
+  import Manifest from "../components/Manifest.svelte";
 </script>
 
 <style>
@@ -10,3 +11,4 @@
   <title>D2AO</title>
 </svelte:head>
 <ProfileSearch />
+<Manifest />
