@@ -33,12 +33,12 @@
   }
 </style>
 
-<button transition:fly={{ y: 200 }}>
-  <a href={`./${membershipId}`}>
+<a href={`./${membershipId}`}>
+  <button transition:fly={{ y: 200 }}>
     <img
       src={`http://bungie.net${iconPath}`}
       alt={`${generateAltText(iconPath)} logo`} />
     <p>{displayName}</p>
-  </a>
 
-</button>
+  </button>
+</a>

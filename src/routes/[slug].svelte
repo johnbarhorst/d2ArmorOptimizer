@@ -14,10 +14,10 @@
     );
 
     const json = await res.json();
-    const data = await json.Response.characters.data;
+    const data = await Object.values(json.Response.characters.data);
 
     if (res.status === 200) {
-      return { post: data };
+      return { characterArray: data };
     } else {
       this.error(res.status, data.message);
     }
@@ -25,8 +25,8 @@
 </script>
 
 <script>
-  export let post;
-  console.log(post);
+  export let characterArray;
+  console.log(characterArray);
 </script>
 
 <style>
