@@ -1,23 +1,18 @@
 <script context="module">
-  import API_KEY from "../../API_KEY.js";
   export async function preload({ params, query }) {
     // the `slug` parameter is available because
     // this file is called [slug].svelte
-    console.log(params);
+
     const res = await this.fetch(
-      `https://www.bungie.net/Platform/Destiny2/1/Profile/${params.slug}/?components=200`,
-      {
-        headers: {
-          "X-API-KEY": API_KEY
-        }
-      }
+      `http://localhost:3001/api/Profile/${query.membershipType}/${params.slug}`
     );
 
     const json = await res.json();
     const data = await Object.values(json.Response.characters.data);
+    const displayName = json.Response.profile.data.userInfo.displayName;
 
     if (res.status === 200) {
-      return { characterArray: data };
+      return { characterArray: data, displayName: displayName };
     } else {
       this.error(res.status, data.message);
     }
@@ -25,7 +20,9 @@
 </script>
 
 <script>
+  import Character from "../components/Character.svelte";
   export let characterArray;
+  export let displayName;
   console.log(characterArray);
 </script>
 
@@ -41,12 +38,10 @@
 </style>
 
 <svelte:head>
-  <title>Test</title>
+  <title>D2AO</title>
 </svelte:head>
-
-<h1>Test</h1>
 
 {#each characterArray as character (character.characterId)}
   <!-- content here -->
-  <h3>{character.characterId}</h3>
+  <Character characterData={character} {displayName} />
 {/each}

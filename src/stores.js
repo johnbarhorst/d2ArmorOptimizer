@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store';
-import API_KEY from '../API_KEY.js';
 
 
 // API/PROFILE STUFF
@@ -15,19 +14,13 @@ export let accountNameSearched = writable(false);
 export let accountSelected = writable(false);
 
 // NOT SURE IF THIS EVEN NEEDS TO EXIST BUT THERE MIGHT BE OTHER THINGS LATER
-export const platformPath = 'https://www.bungie.net/Platform';
+export const baseURL = 'http://localhost:3001/api';
 
 
 // GLOBAL FUNCTIONS
 export const apiCall = async function (apiPath) {
   const response = await fetch(
-    `${platformPath}${apiPath}`,
-    {
-      headers: {
-        "X-API-KEY": API_KEY
-      }
-    }
-  );
+    `${baseURL}${apiPath}`);
   console.log(response);
   const json = await response.json();
   const data = await json.Response;

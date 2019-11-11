@@ -1,5 +1,5 @@
 <script>
-  import { platformPath, apiCall, accounts } from "../stores.js";
+  import { apiCall, accounts } from "../stores.js";
   import PlatformProfile from "./PlatformProfile.svelte";
 
   let searchValue = "";
@@ -7,9 +7,7 @@
   $: accounts.set(searchResults);
 
   const searchForAccounts = async function(search) {
-    const accountList = await apiCall(
-      `/Destiny2/SearchDestinyPlayer/All/${search}/`
-    );
+    const accountList = await apiCall(`/search/${search}`);
     searchResults = [...accountList];
   };
 </script>

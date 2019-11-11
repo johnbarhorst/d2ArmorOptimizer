@@ -3,7 +3,7 @@
 
   export let account;
   console.log(account);
-  const { displayName, iconPath, membershipId } = account;
+  const { displayName, iconPath, membershipId, membershipType } = account;
 
   const generateAltText = function(iconPath) {
     const firstIndex = iconPath.search("_");
@@ -33,7 +33,7 @@
   }
 </style>
 
-<a href={`./${membershipId}`}>
+<a href={`./${membershipId}?membershipType=${membershipType}`}>
   <button transition:fly={{ y: 200 }}>
     <img
       src={`http://bungie.net${iconPath}`}
