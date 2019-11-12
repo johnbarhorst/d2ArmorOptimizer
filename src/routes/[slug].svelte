@@ -41,7 +41,7 @@
   <title>D2AO</title>
 </svelte:head>
 
-{#each characterArray as character (character.characterId)}
+{#each characterArray as characterData (characterData.characterId)}
   <!-- content here -->
-  <Character characterData={character} {displayName} />
+  <Character {characterData} {displayName} />
 {/each}

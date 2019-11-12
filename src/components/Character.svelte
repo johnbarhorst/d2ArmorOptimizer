@@ -7,16 +7,28 @@
     emblemBackgroundPath,
     light,
     levelProgression,
-    stats
+    stats,
+    classType,
+    genderType,
+    raceType
   } = characterData;
+
+  const classTypeRef = ["Titan", "Hunter", "Warlock"];
+  const genderTypeRef = ["Male", "Female"];
+  const raceTypeRef = ["Human", "Awoken", "Exo"];
 </script>
 
 <style>
-
+  div {
+    color: #fff;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 </style>
 
-<div>
-  <p>{displayName}</p>
-  <p>Light: {light}</p>
-  <p>Level: {levelProgression.level}</p>
+<div
+  style="background-image: url({`https://www.bungie.net${emblemBackgroundPath}`})">
+  <h3>{classTypeRef[classType]}</h3>
+  <p>{light}</p>
+  <p>{raceTypeRef[raceType]} {genderTypeRef[genderType]}</p>
 </div>
