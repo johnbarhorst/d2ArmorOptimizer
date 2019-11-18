@@ -13,8 +13,6 @@
 
 <style>
   button {
-    display: flex;
-    align-items: center;
     border: 1px solid #333;
     border-radius: 5px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -27,18 +25,18 @@
     max-height: 30px;
     border-radius: 100%;
   }
-  img,
-  p {
-    margin-left: 5px;
+  a {
+    display: flex;
+    text-decoration: none;
+    color: #333;
   }
 </style>
 
-<a href={`./${membershipId}?membershipType=${membershipType}`}>
-  <button transition:fly={{ y: 200 }}>
+<button transition:fly={{ y: 200 }}>
+  <a href={`./${membershipType}/${membershipId}`}>
     <img
       src={`http://bungie.net${iconPath}`}
       alt={`${generateAltText(iconPath)} logo`} />
     <p>{displayName}</p>
-
-  </button>
-</a>
+  </a>
+</button>

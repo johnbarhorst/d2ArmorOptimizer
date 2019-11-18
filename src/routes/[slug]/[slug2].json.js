@@ -3,7 +3,7 @@ export async function get(req, res, next) {
   // the `slug` parameter is available because
   // this file is called [slug].svelte
   const stuff = await get(
-    `http://localhost:3001/api/Profile/${req.query.membershipType}/${req.params.slug}`
+    `http://localhost:3001/api/Profile/${req.params.slug}/${req.params.slug2}`
   );
   // const json = await res.json();
   // const data = Object.values(json.Response.characters.data);

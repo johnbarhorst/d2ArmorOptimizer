@@ -1,8 +1,8 @@
 <script>
   import { apiCall, accounts } from "../stores.js";
-  import PlatformProfile from "./PlatformProfile.svelte";
+  import AccountSelector from "./AccountSelector.svelte";
 
-  let searchValue = "";
+  let value = "";
   let searchResults = [];
   $: accounts.set(searchResults);
 
@@ -42,15 +42,15 @@
 </style>
 
 <h2>Search for a profile:</h2>
-<form on:submit|preventDefault={() => searchForAccounts(searchValue)}>
-  <input bind:value={searchValue} type="text" />
+<form on:submit|preventDefault={() => searchForAccounts(value)}>
+  <input bind:value type="text" />
   <button type="submit">Search</button>
 </form>
 
 <section class="account-display">
   {#if $accounts.length > 0}
     {#each $accounts as account (account.membershipId)}
-      <PlatformProfile {account} />
+      <AccountSelector {account} />
     {/each}
   {/if}
 </section>

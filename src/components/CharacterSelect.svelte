@@ -13,6 +13,7 @@
     raceType
   } = characterData;
 
+  // This data is available via hash from the database, but no need to process that on the server just yet.
   const classTypeRef = ["Titan", "Hunter", "Warlock"];
   const genderTypeRef = ["Male", "Female"];
   const raceTypeRef = ["Human", "Awoken", "Exo"];
