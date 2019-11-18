@@ -1,7 +1,5 @@
 
 export async function get(req, res, next) {
-  // the `slug` parameter is available because
-  // this file is called [slug].svelte
   const stuff = await get(
     `http://localhost:3001/api/Profile/${req.params.membershipType}/${req.params.destinyMembershipId}`
   );
@@ -9,8 +7,8 @@ export async function get(req, res, next) {
   // const data = Object.values(json.Response.characters.data);
 
   if (stuff !== null) {
+    console.log('This is actually getting hit');
     res.setHeader('Content-Type', 'application/json');
-    console.log(JSON.stringify(stuff));
     res.end(JSON.stringify(stuff));
   } else {
     next();
