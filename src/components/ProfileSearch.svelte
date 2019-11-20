@@ -7,7 +7,7 @@
   $: accounts.set(searchResults);
 
   const searchForAccounts = async function(search) {
-    const accountList = await apiCall(`/search/${search}`);
+    const accountList = await apiCall(`/Search/${search}`);
     searchResults = [...accountList];
   };
 </script>

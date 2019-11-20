@@ -12,7 +12,6 @@ const dev = NODE_ENV === 'development';
 
 // Handle individual character request
 app.get('/api/Profile/:membershipType/:destinyMembershipId/:characterId', async (req, res, next) => {
-  console.log('Character Request');
   const data = await rp({
     url: `https://www.bungie.net/Platform/Destiny2/${req.params.membershipType}/Profile/${req.params.destinyMembershipId}/Character/${req.params.characterId}/?components=201`,
     headers: {
@@ -21,15 +20,12 @@ app.get('/api/Profile/:membershipType/:destinyMembershipId/:characterId', async 
   }, (err, res, body) => {
     if (err) { return console.log(err); }
   });
-  console.log(JSON.parse(data).Response);
   res.send(data);
 });
 
 
 // Handle Character List Request
 app.get('/api/Profile/:membershipType/:destinyMembershipId', async (req, res, next) => {
-  console.log('Character List Request');
-  console.log(req.params);
   const data = await rp({
     url: `https://www.bungie.net/Platform/Destiny2/${req.params.membershipType}/Profile/${req.params.destinyMembershipId}/?components=200,100`,
     headers: {
@@ -38,13 +34,11 @@ app.get('/api/Profile/:membershipType/:destinyMembershipId', async (req, res, ne
   }, (err, res, body) => {
     if (err) { return console.log(err); }
   });
-  console.log(JSON.parse(data).Response);
   res.send(data);
 });
 
 // Handle Search Request
-app.get('/api/search/:search', async (req, res, next) => {
-  console.log('Search Character');
+app.get('/api/Search/:search', async (req, res, next) => {
   const data = await rp({
     url: `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/All/${req.params.search}/`,
     headers: {
@@ -57,7 +51,7 @@ app.get('/api/search/:search', async (req, res, next) => {
 });
 
 
-// Appears that this needs to be at the bottom of the file.
+// Appears that this needs to be at the bottom of the file, else disaster.
 app.use(
   compression({ threshold: 0 }),
   sirv('static', { dev }),
