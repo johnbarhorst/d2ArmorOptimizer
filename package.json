@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "compression": "^1.7.1",
+    "express": "^4.17.1",
     "polka": "next",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.8",
     "sirv": "^0.4.0"
   },
   "devDependencies": {
