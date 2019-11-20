@@ -56,6 +56,8 @@ app.get('/api/search/:search', async (req, res, next) => {
   res.send(data);
 });
 
+
+// Appears that this needs to be at the bottom of the file.
 app.use(
   compression({ threshold: 0 }),
   sirv('static', { dev }),
