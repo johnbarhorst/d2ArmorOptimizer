@@ -4,7 +4,7 @@
     // this file is called [slug].svelte
 
     const res = await this.fetch(
-      `http://localhost:3001/api/Profile/${params.membershipType}/${params.destinyMembershipId}/${params.characterId}`
+      `http://localhost:3000/api/Profile/${params.membershipType}/${params.destinyMembershipId}/${params.characterId}`
     );
 
     //TODO: On server side, refactor data and just send the good stuff.

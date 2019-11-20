@@ -1,7 +1,7 @@
 
 export async function get(req, res, next) {
   const stuff = await get(
-    `http://localhost:3001/api/Profile/${req.params.membershipType}/${req.params.destinyMembershipId}`
+    `http://localhost:3000/api/Profile/${req.params.membershipType}/${req.params.destinyMembershipId}`
   );
   // const json = await res.json();
   // const data = Object.values(json.Response.characters.data);

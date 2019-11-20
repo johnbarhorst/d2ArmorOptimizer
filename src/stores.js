@@ -14,7 +14,7 @@ export let accountNameSearched = writable(false);
 export let accountSelected = writable(false);
 
 // NOT SURE IF THIS EVEN NEEDS TO EXIST BUT THERE MIGHT BE OTHER THINGS LATER
-export const baseURL = 'http://localhost:3001/api';
+export const baseURL = 'http://localhost:3000/api';
 
 
 // GLOBAL FUNCTIONS
