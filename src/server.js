@@ -6,8 +6,8 @@ const rp = require('request-promise-native');
 const https = require('https');
 const fs = require('fs');
 require('dotenv').config();
-
 const app = express();
+
 const { PORT, NODE_ENV, API_KEY, client_secret, client_id } = process.env;
 const dev = NODE_ENV === 'development';
 
@@ -16,17 +16,6 @@ const serverListenTime = function () {
   const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
   return time;
 }
-
-const credentials = {
-  client: {
-    id: client_id,
-    secret: client_secret
-  },
-  auth: {
-    tokenHost: 'https://www.bungie.net/platform/app'
-  }
-};
-
 
 // Handle individual character request
 app.get('/api/Profile/:membershipType/:destinyMembershipId/:characterId', async (req, res, next) => {
