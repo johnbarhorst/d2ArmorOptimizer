@@ -35,7 +35,7 @@
 <button transition:fly={{ y: 200 }}>
   <a href={`./${membershipType}/${membershipId}`}>
     <img
-      src={`http://bungie.net${iconPath}`}
+      src={`https://bungie.net${iconPath}`}
       alt={`${generateAltText(iconPath)} logo`} />
     <p>{displayName}</p>
   </a>

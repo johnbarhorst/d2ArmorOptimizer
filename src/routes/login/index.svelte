@@ -1,5 +1,7 @@
 <script>
-  const login = function() {};
+  const login = async function() {
+    const token = await fetch(``);
+  };
 </script>
 
 <style>

@@ -3,11 +3,29 @@ import express from 'express';
 import compression from 'compression';
 import * as sapper from '@sapper/server';
 const rp = require('request-promise-native');
+const https = require('https');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
-const { PORT, NODE_ENV, API_KEY } = process.env;
+const { PORT, NODE_ENV, API_KEY, client_secret, client_id } = process.env;
 const dev = NODE_ENV === 'development';
+
+const serverListenTime = function () {
+  const today = new Date();
+  const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+  return time;
+}
+
+const credentials = {
+  client: {
+    id: client_id,
+    secret: client_secret
+  },
+  auth: {
+    tokenHost: 'https://www.bungie.net/platform/app'
+  }
+};
 
 
 // Handle individual character request
@@ -56,10 +74,14 @@ app.use(
   compression({ threshold: 0 }),
   sirv('static', { dev }),
   sapper.middleware()
-)
-  .listen(PORT, err => {
-    console.log(`Listening on port ${PORT}`);
-    if (err) console.log('error', err);
-  });
+);
+
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(PORT, err => {
+  console.log(`Listening on port ${PORT} at ${serverListenTime()}`);
+  if (err) console.log('error', err);
+});
 
 
