@@ -8,7 +8,6 @@
     const json = await res.json();
     const data = await Object.values(json.Response.characters.data);
     const displayName = json.Response.profile.data.userInfo.displayName;
-
     if (res.status === 200) {
       return { characterArray: data, displayName: displayName };
     } else {

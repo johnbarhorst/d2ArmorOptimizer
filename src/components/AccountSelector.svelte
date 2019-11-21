@@ -33,7 +33,7 @@
 </style>
 
 <button transition:fly={{ y: 200 }}>
-  <a href={`./${membershipType}/${membershipId}`}>
+  <a rel="prefetch" href={`./${membershipType}/${membershipId}`}>
     <img
       src={`https://bungie.net${iconPath}`}
       alt={`${generateAltText(iconPath)} logo`} />
