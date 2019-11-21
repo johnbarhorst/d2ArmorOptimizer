@@ -1,8 +1,5 @@
 <script context="module">
   export async function preload({ params, query }) {
-    // the `slug` parameter is available because
-    // this file is called [slug].svelte
-
     const res = await this.fetch(
       `http://localhost:3000/api/Profile/${params.membershipType}/${params.destinyMembershipId}`
     );
@@ -21,10 +18,13 @@
 </script>
 
 <script>
+  import { stores } from "@sapper/app";
   import CharacterSelect from "../../components/CharacterSelect.svelte";
   export let characterArray;
   export let displayName;
+  const { preloading } = stores();
   console.log(characterArray);
+  $: console.log($preloading);
 </script>
 
 <style>
@@ -42,7 +42,11 @@
   <title>D2AO: {displayName}</title>
 </svelte:head>
 
-{#each characterArray as characterData (characterData.characterId)}
-  <!-- content here -->
-  <CharacterSelect {characterData} {displayName} />
-{/each}
+{#if $preloading}
+  <h1>Loading Characters</h1>
+{:else}
+  {#each characterArray as characterData (characterData.characterId)}
+    <!-- content here -->
+    <CharacterSelect {characterData} {displayName} />
+  {/each}
+{/if}
