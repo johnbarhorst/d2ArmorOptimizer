@@ -1,5 +1,5 @@
 {
-  "name": "TODO",
+  "name": "d2ao",
   "description": "Destiny 2 Armor Optimizer",
   "version": "0.0.1",
   "scripts": {
@@ -15,7 +15,6 @@
     "compression": "^1.7.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "polka": "next",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "simple-oauth2": "^3.1.0",
