@@ -17,13 +17,10 @@
 </script>
 
 <script>
-  import { stores } from "@sapper/app";
   import CharacterSelect from "../../components/CharacterSelect.svelte";
   export let characterArray;
   export let displayName;
-  const { preloading } = stores();
   console.log(characterArray);
-  $: console.log($preloading);
 </script>
 
 <style>
@@ -41,11 +38,7 @@
   <title>D2AO: {displayName}</title>
 </svelte:head>
 
-{#if $preloading}
-  <h1>Loading Characters</h1>
-{:else}
-  {#each characterArray as characterData (characterData.characterId)}
-    <!-- content here -->
-    <CharacterSelect {characterData} {displayName} />
-  {/each}
-{/if}
+{#each characterArray as characterData (characterData.characterId)}
+  <!-- content here -->
+  <CharacterSelect {characterData} {displayName} />
+{/each}

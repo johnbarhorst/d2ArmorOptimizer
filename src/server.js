@@ -6,8 +6,8 @@ const rp = require('request-promise-native');
 const https = require('https');
 const fs = require('fs');
 require('dotenv').config();
-const app = express();
 
+const app = express();
 const { PORT, NODE_ENV, API_KEY, client_secret, client_id } = process.env;
 const dev = NODE_ENV === 'development';
 
@@ -16,6 +16,7 @@ const serverListenTime = function () {
   const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
   return time;
 }
+
 
 // Handle individual character request
 app.get('/api/Profile/:membershipType/:destinyMembershipId/:characterId', async (req, res, next) => {
@@ -45,17 +46,7 @@ app.get('/api/Profile/:membershipType/:destinyMembershipId', async (req, res, ne
 });
 
 // Handle Search Request
-app.get('/api/Search/:search', async (req, res, next) => {
-  const data = await rp({
-    url: `https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/All/${req.params.search}/`,
-    headers: {
-      "X-API-KEY": API_KEY
-    }
-  }, (err, res, body) => {
-    if (err) { return console.log(err); }
-  });
-  res.send(data);
-});
+
 
 
 // Appears that this needs to be at the bottom of the file, else disaster.
