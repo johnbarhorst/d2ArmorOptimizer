@@ -11,7 +11,7 @@ const app = express();
 const { PORT, NODE_ENV, API_KEY, client_secret, client_id } = process.env;
 const dev = NODE_ENV === 'development';
 
-const serverListenTime = function () {
+const getTime = function () {
   const today = new Date();
   const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
   return time;
@@ -60,7 +60,7 @@ https.createServer({
   key: fs.readFileSync('server.key'),
   cert: fs.readFileSync('server.cert')
 }, app).listen(PORT, err => {
-  console.log(`Listening on port ${PORT} at ${serverListenTime()}`);
+  console.log(`Listening on port ${PORT} at ${getTime()}`);
   if (err) console.log('error', err);
 });
 
