@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "passport": "^0.4.0",
+    "passport-oauth2": "^1.5.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "sirv": "^0.4.0"
