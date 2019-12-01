@@ -44,10 +44,20 @@ const User = mongoose.model('user', userSchema);
 
 // OAUTH GOODNESS
 
+const authCheck = (req, res, next) => {
+  if (!req.user) {
+    res.redirect('/auth/login');
+  } else {
+    next();
+  }
+};
+
 //cookies
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser((user, done) => {
+  console.log(user);
   done(null, user.id);
 });
 
@@ -79,8 +89,6 @@ passport.use(new Oauth2Strategy({
   const accountInfo = JSON.parse(data).Response;
   const destinyProfile = accountInfo.destinyMemberships;
   const bungieProfile = accountInfo.bungieNetUser;
-  console.log(bungieProfile);
-  console.log(destinyProfile);
   User.findOne({ bungieId: bungieProfile.membershipId })
     .then(currentUser => {
       if (currentUser) {
@@ -110,29 +118,40 @@ passport.use(new Oauth2Strategy({
 
 app.get('/auth/login', passport.authenticate('oauth2'));
 
+app.get('/auth/logout', (req, res) => {
+  req.logout();
+  req.session.user = false;
+  res.redirect('/');
+})
+
 app.get('/auth/redirect', passport.authenticate('oauth2'), (req, res) => {
   console.log('Logged in');
-  res.send(req.user);
+  req.session.userId = req.session.passport.user;
+  req.session.user = true;
+
+  res.redirect('/user');
 });
 
-// Handle individual character request
-app.get('/api/Profile/:membershipType/:destinyMembershipId/:characterId', async (req, res, next) => {
-  const data = await rp({
-    url: `https://www.bungie.net/Platform/Destiny2/${req.params.membershipType}/Profile/${req.params.destinyMembershipId}/Character/${req.params.characterId}/?components=201`,
-    headers: {
-      "X-API-KEY": API_KEY
-    }
-  }, (err, res, body) => {
-    if (err) { return console.log(err); }
-  });
-  res.send(data);
+app.use(function (req, res, next) {
+  console.log(req.session.passport);
+  console.log(req.session.user);
+  console.log(req.session.userId);
+  if (typeof req.session.user === 'undefined') {
+    req.session.user = false;
+  }
+  next()
 });
 
 // This needs to be at the bottom of the file, else disaster.
 app.use(
   compression({ threshold: 0 }),
   sirv('static', { dev }),
-  sapper.middleware()
+  sapper.middleware({
+    session: (req, res) => ({
+      user: req.session.user,
+      userId: req.session.userId
+    })
+  })
 );
 
 // All systems go:
@@ -143,5 +162,3 @@ https.createServer({
   console.log(`Listening on port ${PORT} at ${getTime()}`);
   if (err) console.log('error', err);
 });
-
-

@@ -1,6 +1,8 @@
 <script>
   export let segment;
-  import { loggedIn } from "../stores.js";
+  import { stores } from "@sapper/app";
+  const { session } = stores();
+  console.log($session);
 </script>
 
 <style>
@@ -35,9 +37,9 @@
         blog
       </a>
     </li>
-    {#if !$loggedIn}
+    {#if !$session.user}
       <li>
-        <a href="./auth/login">Log in</a>
+        <a href="/user/">Log in</a>
       </li>
     {:else}
       <!-- TODO User component -->
