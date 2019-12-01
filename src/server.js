@@ -77,7 +77,7 @@ passport.use(new Oauth2Strategy({
   tokenURL: 'https://www.bungie.net/platform/app/oauth/token/',
   clientID: client_id,
   clientSecret: client_secret,
-  callBackURL: 'https://localhost:3000/auth/redirect'
+  callBackURL: 'https://localhost:3000/api/auth/redirect'
 }, async (accessToken, refreshToken, profile, done) => {
   const data = await rp({
     url: `https://www.bungie.net/Platform/User/GetMembershipsForCurrentUser/`,
@@ -116,15 +116,15 @@ passport.use(new Oauth2Strategy({
     });
 }));
 
-app.get('/auth/login', passport.authenticate('oauth2'));
+app.get('/api/auth/login', passport.authenticate('oauth2'));
 
-app.get('/auth/logout', (req, res) => {
+app.get('/api/auth/logout', (req, res) => {
   req.logout();
   req.session.user = false;
   res.redirect('/');
 })
 
-app.get('/auth/redirect', passport.authenticate('oauth2'), (req, res) => {
+app.get('/api/auth/redirect', passport.authenticate('oauth2'), (req, res) => {
   console.log('Logged in');
   req.session.userId = req.session.passport.user;
   req.session.user = true;
