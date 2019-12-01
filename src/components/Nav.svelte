@@ -39,11 +39,11 @@
     </li>
     {#if !$session.user}
       <li>
-        <a href="/user/">Log in</a>
+        <a href="/api/auth/login">Login</a>
       </li>
     {:else}
       <!-- TODO User component -->
-      <li>Hello User</li>
+      <a href="/api/auth/logout">Logout</a>
     {/if}
   </ul>
 </nav>

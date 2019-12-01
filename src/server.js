@@ -23,7 +23,7 @@ const getTime = function () {
 }
 // DB STUFF
 // Connect to MongoDB
-mongoose.connect(Mongo_DB, () => console.log('Connected to MongoDB'));
+mongoose.connect(Mongo_DB, { useNewUrlParser: true }, () => console.log('Connected to MongoDB'));
 
 const platformSchema = new Schema({
   displayName: String,
@@ -40,7 +40,7 @@ const userSchema = new Schema({
   platforms: [platformSchema]
 });
 
-const User = mongoose.model('user', userSchema);
+export const User = mongoose.model('user', userSchema);
 
 // OAUTH GOODNESS
 
@@ -162,3 +162,4 @@ https.createServer({
   console.log(`Listening on port ${PORT} at ${getTime()}`);
   if (err) console.log('error', err);
 });
+
