@@ -37,7 +37,7 @@
     </li>
     {#if !$loggedIn}
       <li>
-        <a href="./auth/">Log in</a>
+        <a href="./auth/login">Log in</a>
       </li>
     {:else}
       <!-- TODO User component -->
