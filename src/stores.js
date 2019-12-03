@@ -16,8 +16,13 @@ const baseURL = 'https://localhost:3000/api';
 export const apiCall = async function (apiPath) {
   const response = await fetch(
     `${baseURL}${apiPath}`);
+  console.log('Response to API Call in stores.js');
   console.log(response);
   const json = await response.json();
+  console.log('After doing response.json()');
+  console.log(json);
   const data = await json.Response;
+  console.log('Data to be sent:');
+  console.log(data);
   return data;
 }
