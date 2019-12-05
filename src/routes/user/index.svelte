@@ -27,5 +27,8 @@
   {/await}
 {:else}
   <!-- TODO: Cmon, you can do better than this! -->
-  <h1>You'll have to log in!</h1>
+  <h1>
+    You'll have to
+    <a href="../api/auth/login">log in!</a>
+  </h1>
 {/if}

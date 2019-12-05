@@ -121,6 +121,7 @@ app.get('/api/auth/login', passport.authenticate('oauth2'));
 app.get('/api/auth/logout', (req, res) => {
   req.logout();
   req.session.user = false;
+  req.session.userId = null;
   res.redirect('/');
 })
 
@@ -138,6 +139,9 @@ app.use(function (req, res, next) {
   console.log(req.session.userId);
   if (typeof req.session.user === 'undefined') {
     req.session.user = false;
+  }
+  if (typeof req.session.userId === 'undefined') {
+    req.session.userId = null;
   }
   next()
 });
