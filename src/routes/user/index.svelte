@@ -1,5 +1,6 @@
 <script>
   import { stores } from "@sapper/app";
+  import AccountSelector from "../../components/AccountSelector.svelte";
   const { preloading, page, session } = stores();
   const getCurrentUser = async function() {
     const response = await fetch(`/api/User/getUser.json`);
@@ -22,6 +23,9 @@
     <h2>Loading</h2>
   {:then profile}
     <h2>{profile.username}</h2>
+    {#each profile.platforms as account (account.membershipId)}
+      <AccountSelector {account} />
+    {/each}
   {:catch error}
     <h2>Error</h2>
   {/await}

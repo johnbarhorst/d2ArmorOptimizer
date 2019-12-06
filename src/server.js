@@ -28,7 +28,7 @@ mongoose.connect(Mongo_DB, { useNewUrlParser: true }, () => console.log('Connect
 const platformSchema = new Schema({
   displayName: String,
   membershipType: Number,
-  membershipId: Number,
+  membershipId: String,
   crossSaveOverride: Number,
   iconPath: String
 })
@@ -88,6 +88,8 @@ passport.use(new Oauth2Strategy({
   }, err => err && console.log(err));
   const accountInfo = JSON.parse(data).Response;
   const destinyProfile = accountInfo.destinyMemberships;
+  console.log('Info from GetMemberships call:');
+  console.log(accountInfo);
   const bungieProfile = accountInfo.bungieNetUser;
   User.findOne({ bungieId: bungieProfile.membershipId })
     .then(currentUser => {
