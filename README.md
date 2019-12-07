@@ -4,7 +4,7 @@ A tool for comparing armor pieces and optimizing stats for Destiny 2. (Once it's
 
 
 ### If you want to run it on your machine, you'll need a few things...
-  First, you'll have to get your own API key by registering at [Bungie](https://www.bungie.net/en/Application), here you will also need to set your redirect url to https://localhost:3000/auth/redirect.
+  First, you'll have to get your own API key by registering at [Bungie](https://www.bungie.net/en/Application), here you will also need to set your redirect url to https://localhost:3000/api/auth/redirect.
 
   Create a .env file in the root directory of your project, and copy the following into it:
 
