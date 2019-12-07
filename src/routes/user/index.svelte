@@ -1,7 +1,17 @@
 <script>
   import { stores } from "@sapper/app";
-  import AccountSelector from "../../components/AccountSelector.svelte";
+  import { apiCall } from "../../stores.js";
+  import UserProfile from "../../components/UserProfile.svelte";
+  import CharacterSelect from "../../components/CharacterSelect.svelte";
+
   const { preloading, page, session } = stores();
+
+  let characters = [];
+
+  const getCharacters = function(e) {
+    characters = e.detail.characters;
+  };
+
   const getCurrentUser = async function() {
     const response = await fetch(`/api/User/getUser.json`);
     const data = await response.json();
@@ -9,6 +19,7 @@
     console.log(data);
     return data;
   };
+
   const profile = getCurrentUser();
 </script>
 
@@ -24,7 +35,7 @@
   {:then profile}
     <h2>{profile.username}</h2>
     {#each profile.platforms as account (account.membershipId)}
-      <AccountSelector {account} />
+      <UserProfile {account} on:getCharacters={getCharacters} />
     {/each}
   {:catch error}
     <h2>Error</h2>
@@ -36,3 +47,10 @@
     <a href="../api/auth/login">log in!</a>
   </h1>
 {/if}
+<div>
+  {#if characters.length > 0}
+    {#each characters as character (character.characterId)}
+      <CharacterSelect characterData={character} />
+    {/each}
+  {/if}
+</div>

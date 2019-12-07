@@ -1,6 +1,5 @@
 <script>
   export let characterData;
-  export let displayName;
   const {
     membershipId,
     characterId,
