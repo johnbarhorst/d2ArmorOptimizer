@@ -44,14 +44,6 @@ export const User = mongoose.model('user', userSchema);
 
 // OAUTH GOODNESS
 
-const authCheck = (req, res, next) => {
-  if (!req.user) {
-    res.redirect('/auth/login');
-  } else {
-    next();
-  }
-};
-
 //cookies
 app.use(passport.initialize());
 app.use(passport.session());
@@ -136,9 +128,6 @@ app.get('/api/auth/redirect', passport.authenticate('oauth2'), (req, res) => {
 });
 
 app.use(function (req, res, next) {
-  console.log(req.session.passport);
-  console.log(req.session.user);
-  console.log(req.session.userId);
   if (typeof req.session.user === 'undefined') {
     req.session.user = false;
   }
