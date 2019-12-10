@@ -1,4 +1,5 @@
 <script>
+  import Character from "./Character.svelte";
   export let characterData;
   const {
     membershipId,
@@ -31,4 +32,7 @@
   <h3>{classTypeRef[classType]}</h3>
   <p>{light}</p>
   <p>{raceTypeRef[raceType]} {genderTypeRef[genderType]}</p>
+</div>
+<div>
+  <Character account={characterData} />
 </div>
