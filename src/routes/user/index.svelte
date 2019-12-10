@@ -1,8 +1,8 @@
 <script>
   import { stores } from "@sapper/app";
-  import { apiCall } from "../../stores.js";
-  import UserProfile from "../../components/UserProfile.svelte";
-  import CharacterSelect from "../../components/CharacterSelect.svelte";
+
+  import CharacterBanner from "../../components/CharacterBanner.svelte";
+  import AccountButton from "../../components/AccountButton.svelte";
 
   const { preloading, page, session } = stores();
 
@@ -24,7 +24,12 @@
 </script>
 
 <style>
-
+  .account-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
 </style>
 
 <h1>User Page</h1>
@@ -34,9 +39,11 @@
     <h2>Loading</h2>
   {:then profile}
     <h2>{profile.username}</h2>
-    {#each profile.platforms as account (account.membershipId)}
-      <UserProfile {account} on:getCharacters={getCharacters} />
-    {/each}
+    <section class="account-display">
+      {#each profile.platforms as account (account.membershipId)}
+        <AccountButton {account} on:getCharacters={getCharacters} />
+      {/each}
+    </section>
   {:catch error}
     <h2>Error</h2>
   {/await}
@@ -50,7 +57,7 @@
 <div>
   {#if characters.length > 0}
     {#each characters as character (character.characterId)}
-      <CharacterSelect characterData={character} />
+      <CharacterBanner characterData={character} />
     {/each}
   {/if}
 </div>

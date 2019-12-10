@@ -37,6 +37,9 @@
         blog
       </a>
     </li>
+    <li>
+      <a href="/user">Profile</a>
+    </li>
     {#if !$session.user}
       <li>
         <a href="/api/auth/login">Login</a>

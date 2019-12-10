@@ -18,7 +18,7 @@
 </script>
 
 <script>
-  import CharacterSelect from "../../components/CharacterSelect.svelte";
+  import CharacterBanner from "../../components/CharacterBanner.svelte";
   export let data;
   console.log(data);
   const characterArray = Object.values(data.Response.characters.data);
@@ -44,5 +44,5 @@
 
 {#each characterArray as characterData (characterData.characterId)}
   <!-- content here -->
-  <CharacterSelect {characterData} {displayName} />
+  <CharacterBanner {characterData} {displayName} />
 {/each}
