@@ -1,7 +1,7 @@
 <script context="module">
   export async function preload({ params, query }) {
     const res = await this.fetch(
-      `/api/${params.membershipType}/${params.destinyMembershipId}`
+      `/api/Profile/${params.membershipType}/${params.destinyMembershipId}`
     );
 
     //TODO: On server side, refactor data and just send the good stuff.

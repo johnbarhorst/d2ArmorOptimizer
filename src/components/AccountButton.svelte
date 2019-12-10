@@ -7,7 +7,7 @@
   const { displayName, iconPath, membershipId, membershipType } = account;
 
   const handleClick = async function() {
-    const data = await apiCall(`/${membershipType}/${membershipId}`);
+    const data = await apiCall(`/Profile/${membershipType}/${membershipId}`);
     dispatch("getCharacters", {
       characters: Object.values(data.characters.data)
     });
